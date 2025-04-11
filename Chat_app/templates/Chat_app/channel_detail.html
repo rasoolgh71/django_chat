@@ -1,0 +1,791 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phusion Home</title>
+    <link rel="stylesheet" href="{% static 'chat/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+<body>
+    <div class="flex h-screen bg-gray-100">
+        <!-- Desktop Sidebar -->
+        <aside class="hidden md:flex flex-col w-56 bg-gradient-to-b from-[#04644c] to-[#028f6a] shadow-lg">
+            <div class="flex flex-col flex-1 overflow-y-auto">
+                <!-- Profile Section: Compact and Elegant -->
+                <div class="w-3/4 mx-auto p-4 bg-gradient-to-br from-emerald-500/60 to-green-200/40 rounded-b-xl shadow-sm">
+                    <div class="flex items-center gap-3">
+                        <img
+                            class="w-12 h-12 rounded-full object-cover border-2 border-[#4FEBAF] transition-transform duration-300 ease-in-out hover:scale-110 hover:shadow-md"
+                            src="{% static 'chat/images/image.png' %}"
+                            alt="User Profile"
+                        >
+                        <div class="flex-1 text-right">
+                            <h2 class="text-base font-semibold text-white"> {{ request.user.consultant_profile.consultant_name }}</h2>
+
+                            <p class="text-green-200 text-xs mt-1" style="direction: ltr;">zarfiat: {{ request.user.consultant_profile.consultant_stu.count }} </p>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation: Clean and Organized -->
+                <nav class="flex flex-col flex-1 p-4 gap-2">
+                    <a href="#dashboard" class="group flex items-center px-4 py-2 text-white hover:bg-[#4FEBAF]/20 rounded-lg transition-all duration-300 ease-in-out">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 text-green-200 group-hover:text-white transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <rect x="4" y="4" width="6" height="6" rx="1" />
+                            <rect x="14" y="4" width="6" height="6" rx="1" />
+                            <rect x="4" y="14" width="6" height="6" rx="1" />
+                            <rect x="14" y="14" width="6" height="6" rx="1" />
+                        </svg>
+                        <span class="text-sm font-medium">داشبورد</span>
+                    </a>
+                    <a href="#messages" class="group flex items-center px-4 py-2 text-white hover:bg-[#4FEBAF]/20 rounded-lg transition-all duration-300 ease-in-out">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 text-green-200 group-hover:text-white transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path d="M20 4H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h5l3 3 3-3h5a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z" />
+                        </svg>
+                        <span class="text-sm font-medium">فیوگرام</span>
+                    </a>
+                    <a href="#channels" class="group flex items-center px-4 py-2 text-white hover:bg-[#4FEBAF]/20 rounded-lg transition-all duration-300 ease-in-out">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 text-green-200 group-hover:text-white transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 8.25h15m-16.5 7.5h15m-1.8-13.5-3.9 19.5m-2.1-19.5-3.9 19.5" />
+                        </svg>
+                        <span class="text-sm font-medium">کانال‌ها</span>
+                    </a>
+                    <a href="#evaluation" class="group flex items-center px-4 py-2 text-white hover:bg-[#4FEBAF]/20 rounded-lg transition-all duration-300 ease-in-out">
+                        <img src="icons8-ai-100.png" class="h-5 w-5 ml-2 text-green-200 group-hover:brightness-0 group-hover:invert transition-all duration-300" alt="icon" />
+                        <span class="text-sm font-medium">ارزیابی و بهبود</span>
+                    </a>
+                    <a href="#blogs" class="group flex items-center px-4 py-2 text-white hover:bg-[#4FEBAF]/20 rounded-lg transition-all duration-300 ease-in-out">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-6 ml-1 text-green-200 group-hover:text-white transition-colors duration-300" fill="none" viewBox="0 0 14 30" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm2 4h12m-12 4h8" />
+                        </svg>
+                        <span class="text-sm font-medium">بلاگ‌ها</span>
+                    </a>
+                    <a href="#profile" class="group flex items-center px-4 py-2 text-white hover:bg-[#4FEBAF]/20 rounded-lg transition-all duration-300 ease-in-out">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 text-green-200 group-hover:text-white transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="7" r="4" />
+                            <path d="M18 18v1a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-1c0-2.5 3-4 6-4s6 1.5 6 4z" />
+                        </svg>
+                        <span class="text-sm font-medium">پروفایل</span>
+                    </a>
+                    <a href="#support" class="group flex items-center px-4 py-2 text-white hover:bg-[#4FEBAF]/20 rounded-lg transition-all duration-300 ease-in-out">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 text-green-200 group-hover:text-white transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z" />
+                        </svg>
+                        <span class="text-sm font-medium">پشتیبانی</span>
+                    </a>
+                </nav>
+            </div>
+        </aside>
+        <!-- Main Content Section -->
+        <div class="flex flex-col flex-1 overflow-y-auto">
+            <!-- Navbar Section -->
+            <nav class="sticky top-0 left-0 w-full z-50 flex items-center justify-between h-18 bg-white border-b shadow-sm border-gray-200 px-6 py-4 rtl">
+                <!-- Left Section -->
+                <div class="flex items-center space-x-4 rtl:space-x-reverse">
+                    <button id="menu-toggle"
+                        class="md:hidden text-emerald-700 hover:text-black transition-all duration-300 ease-in-out transform hover:scale-110
+                               p-2 rounded-full hover:bg-gray-100">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                        </svg>
+                    </button>
+                </div>
+
+
+                <!-- Center Section (Logo) -->
+                <div class="absolute left-1/2 transform -translate-x-1/2">
+                    <p style="user-select: none;" class="text-emerald-700 text-xl font-bold">فیوژن</p>
+                </div>
+
+                <!-- Right Section -->
+                <div class="flex items-center space-x-6 rtl:space-x-reverse">
+
+                    <a href="#" id="notification-icon" class="text-gray-400 hover:text-black transition-all duration-300 ease-in-out transform hover:scale-110">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
+                        </svg>
+                    </a>
+                    <a href="#" id="settings-icon" class="text-gray-400 hover:text-black transition-all duration-300 ease-in-out transform hover:scale-110">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                        </svg>
+                    </a>
+                </div>
+            </nav>
+
+
+
+            <!-- Notification Popup -->
+            <div id="notification-popup" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50 hidden">
+                <div class="bg-gradient-to-b from-[#04644c] to-[#028f6a] p-6 rounded-lg w-96 max-w-full transform transition-all scale-95 opacity-0" id="notification-popup-content">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-xl font-bold text-white">اطلاعیه‌ها</h2>
+                        <button id="close-notification-btn" class="text-white text-2xl">×</button>
+                    </div>
+                    <div class="text-white text-sm">
+                        <p>شما پیام جدید دارید!</p>
+                    </div>
+                    <div class="mt-4">
+                        <button class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-200">View Message</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Modal -->
+            <div id="settings-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50 hidden">
+                <div class="bg-white p-6 rounded-lg w-96 max-w-full transform transition-all scale-95 opacity-0" id="modal-content">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-lg font-semibold text-gray-800">تنظیمات</h2>
+                        <button id="close-modal-btn" class="text-gray-600 hover:text-gray-900 text-2xl">×</button>
+                    </div>
+                    <div class="space-y-4">
+                        <p class="text-gray-600">افزونه‌ها</p>
+                        <button class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-200">ذخیره تنظیمات</button>
+                    </div>
+                </div>
+            </div>
+
+
+                        <main dir="rtl" class="flex flex-col h-screen bg-gradient-to-br from-blue-50 to-purple-50">
+                <div class="flex flex-col md:flex-row-reverse gap-4 flex-1 p-4 md:p-6 pb-0">
+                    <!-- Enhanced Sidebar with Minimum Width -->
+                    <div class="md:w-1/4 min-w-[250px] bg-white rounded-2xl shadow-lg flex flex-col overflow-hidden">
+                        <!-- Tab Selector -->
+                        <div class="flex border-b border-gray-200">
+                            <button
+                                data-tab="friends-tab"
+                                onclick="switchTab('friends-tab')"
+                                class="tab-button flex-1 p-4 text-sm font-medium text-blue-600 border-b-2 border-blue-500 transition-colors"
+                            >
+                                دوستان
+                            </button>
+                            <button
+                                data-tab="channels-tab"
+                                onclick="switchTab('channels-tab')"
+                                class="tab-button flex-1 p-4 text-sm font-medium text-gray-500 hover:text-blue-600 border-b-2 border-transparent hover:border-blue-100 transition-colors"
+                            >
+                                کانال‌ها
+                            </button>
+                        </div>
+
+                        <!-- Friends Tab Content -->
+                        <div id="friends-tab" class="tab-content flex-1 flex flex-col">
+                            <!-- Existing Friends Content -->
+                            <div class="p-4 border-b border-gray-100">
+                                <div class="relative group">
+                                    <input
+                                        type="text"
+                                        class="w-full p-3 pr-12 text-sm bg-gray-50 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-300 transition-all"
+                                        placeholder="جستجوی دانش آموزان"
+                                    >
+                                    <svg class="w-5 h-5 absolute top-3 left-3 text-gray-400 group-focus-within:text-blue-500 transition-colors"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="flex-1 overflow-y-auto max-h-[calc(100vh-16rem)]">
+
+                                <div class="p-4 space-y-3">
+                                    <!-- Section Header -->
+                                    <div class="flex justify-between items-center px-2">
+                                        <h3 class="text-sm font-semibold text-gray-500"> مکالمات </h3>
+                                        <span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">{{ conversations.count }} </span>
+                                    </div>
+
+                                    <!-- Friends Items -->
+                                    <div class="space-y-2">
+                                        <!-- Friend Item -->
+                                        {% for conversation in conversations %}
+
+                                         <div class="flex items-center gap-3 p-2 rounded-xl hover:bg-gray-50 transition-colors cursor-pointer group" onclick="selectFriend('friend1')">
+                                            <div class="relative">
+                                                <img src="{% static 'chat/images/image2.jpg' %}"
+                                                    class="w-10 h-10 rounded-lg object-cover shadow-sm">
+                                                <div class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-400 rounded-full border-2 border-white"></div>
+                                            </div>
+
+                                            <a href="{% url 'chat:conversation_consultant' conversation.uuid %}" class="flex-1 min-w-0">
+                                                <p class="text-sm font-medium text-gray-800 truncate">   {{ conversation.student.student_name }}</p>
+                                                <p class="text-xs text-gray-400 truncate">major: </p>
+                                            </a>
+                                            <button class="opacity-0 group-hover:opacity-100 p-1.5 text-blue-500 hover:bg-blue-50 rounded-lg transition-all">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+
+
+
+
+
+                                    {% endfor %}
+                                    </div>
+
+                                    <!-- Search Results Section -->
+                                    <div class="mt-6 border-t border-gray-100 pt-4">
+                                        <h3 class="text-sm font-semibold text-gray-500 mb-4 px-2">نتایج جستجو</h3>
+                                        <!-- Sample Search Result -->
+                                        <div class="flex items-center gap-3 p-2 mt-2 rounded-xl bg-blue-50/50">
+                                            <img src="{% static 'chat/images/image.png' %}"
+                                                class="w-9 h-9 rounded-lg object-cover shadow-sm">
+                                            <div class="flex-1 min-w-0">
+                                                <p class="text-sm font-medium text-gray-800 truncate">امیرحسین</p>
+                                                <p class="text-xs text-gray-400 truncate">توسعه دهنده فرانت‌اند</p>
+                                            </div>
+                                            <button class="text-sm px-3 py-1.5 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+                                                افزودن
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Channels Tab Content -->
+                        <div id="channels-tab" class="tab-content hidden flex-1 flex flex-col">
+                            <!-- Channels Search Box -->
+                            <div class="p-4 border-b border-gray-100">
+                                <div class="relative group">
+                                    <input
+                                        type="text"
+                                        class="w-full p-3 pr-12 text-sm bg-gray-50 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-300 transition-all"
+                                        placeholder="جستجوی کانال..."
+                                    >
+                                    <svg class="w-5 h-5 absolute top-3 left-3 text-gray-400 group-focus-within:text-blue-500 transition-colors"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <!-- Channels List -->
+
+
+                            <div class="flex-1 overflow-y-auto max-h-[calc(100vh-16rem)]">
+                                <div class="p-4 space-y-3">
+                                    <!-- Section Header -->
+                                    <div class="flex justify-between items-center px-2">
+                                        <h3 class="text-sm font-semibold text-gray-500">کانال‌های من</h3>
+                                        <span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">{{ joined_channels.count }}</span>
+                                    </div>
+
+                                    <!-- Channel Items -->
+                                    <div class="space-y-2">
+                                        <!-- Channel Item -->
+                                        {% for channels in joined_channels %}
+                                        <div class="flex items-center gap-3 p-2 rounded-xl hover:bg-gray-50 transition-colors cursor-pointer">
+                                            <div class="relative">
+                                                <div class="w-10 h-10 bg-purple-500 rounded-lg flex items-center justify-center text-white text-xl font-bold">
+                                                    UI
+                                                </div>
+                                            </div>
+                                            <a href="{% url 'chat:consultant_channel_detail' channels.id %}" class="flex-1 min-w-0">
+                                                <p class="text-sm font-medium text-gray-800 truncate">{{ channels.name }}</p>
+                                                <p class="text-xs text-gray-400 truncate">{{ channels.members.count }}</p>
+                                            </a>
+                                            <a  class="opacity-0 group-hover:opacity-100 p-1.5 text-blue-500 hover:bg-blue-50 rounded-lg transition-all">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                                </svg>
+                                            </a>
+                                        </div>
+                                        {% endfor %}
+
+
+
+
+
+                                        <!-- More Channels... -->
+                                    </div>
+
+                                    <!-- Discover Channels -->
+                                    <div class="mt-6 border-t border-gray-100 pt-4">
+                                        <h3 class="text-sm font-semibold text-gray-500 mb-4 px-2">کانال‌های پیشنهادی</h3>
+
+                                        <!-- Channel Recommendation -->
+                                        <div class="flex items-center gap-3 p-2 mt-2 rounded-xl bg-blue-50/50">
+                                             {% for channelss in unjoined_channels %}
+                                            <div class="w-9 h-9 bg-orange-500 rounded-lg flex items-center justify-center text-white text-sm font-bold">
+                                                FE
+                                            </div>
+                                            <div class="flex-1 min-w-0">
+                                                <p class="text-sm font-medium text-gray-800 truncate"> {{ channelss.name }}</p>
+                                                <p class="text-xs text-gray-400 truncate">{{ channelss.members.count }} </p>
+                                            </div>
+                                              <form action="{% url 'chat:manage_channel' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="join_channel">
+                        <input type="hidden" name="username" value="{{ channelss.username }}">
+                         <button class="text-sm px-3 py-1.5 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+                                                پیوستن
+                                            </button>
+                    </form>
+
+                                        {% endfor %}
+
+
+
+
+                                        </div>
+                                    </div>
+
+
+
+                                     <div class="mt-6 border-t border-gray-100 pt-4">
+                                        <h3 class="text-sm font-semibold text-gray-500 mb-4 px-2"><a href="{% url 'chat:channel_create' %}">  ایجاد کانال جدید </a></h3>
+
+                                        <!-- Channel Recommendation -->
+
+
+
+                            </div>
+
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <!-- Chat area -->
+                    <div id="chat-area" class="hidden md:flex flex-1 bg-white rounded-2xl shadow-lg p-4 flex flex-col h-[calc(100vh-8rem)] md:h-auto">
+                       <!-- Chat header -->
+                        <div class="flex items-center justify-between px-4 py-3 border-b border-gray-200 bg-white shadow-sm relative">
+                            <div class="flex items-center gap-3">
+                                <button onclick="goBackToFriends()" class="md:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                                    </svg>
+                                </button>
+
+                                <div class="relative">
+                                    <div class="relative">
+                                        <!--channel photo update needed -->
+                                        <img src="" class="w-12 h-12 rounded-xl object-cover" alt="Channel">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <h3 class="font-semibold text-gray-900">{{ channel.name }}</h3>
+                                </div>
+                            </div>
+
+                            <!-- Three-dot menu -->
+                            <div class="relative">
+                                <button onclick="toggleMenu(this)"
+                                        class="p-2 text-gray-500 hover:bg-gray-100 rounded-lg transition-colors menu-button"
+                                        aria-label="More options">
+                                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+                                        </svg>
+                                </button>
+
+                                <!-- Animated dropdown menu -->
+                                <div class="absolute left-0 mt-2 w-44 bg-emerald-50 rounded-lg shadow-xl border border-gray-100 py-4 origin-top-right transition-all duration-200 opacity-0 invisible scale-95">
+                                    <a href="#" class="block rounded-full px-4 py-2.5 mx-2 text-sm text-gray-700 hover:bg-emerald-200 transition-colors">مشاهده پروفایل</a>
+                                    <a href="#" class="block rounded-full px-4 py-2.5 mx-2 text-sm text-gray-700 hover:bg-emerald-200 transition-colors">سکوت اعلانات</a>
+                                    <a href="#" class="block rounded-full px-4 py-2.5 mx-2 text-sm text-red-600 hover:bg-red-100 transition-colors">حذف چت</a>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+
+                        <!-- Chat history -->
+                        <div class="flex-1 overflow-y-auto max-h-[calc(100vh-20rem)] space-y-4 py-4 scroll-smooth">
+                            {% for message in messages %}
+                            <!-- Messages -->
+
+                            <div class="flex justify-start">
+                                <div class="relative max-w-xs md:max-w-md">
+                                    <!-- Message Bubble -->
+                                    <div class="bg-gradient-to-l from-blue-500 to-blue-600 text-white p-3 rounded-xl rounded-es-sm shadow-sm">
+                                        <div class="flex flex-col gap-1.5">
+                                            {% if  message.message_type == "text" %}
+                                            <p class="text-sm leading-snug text-right">{{ message.text }}   </p>
+                                               {% elif message.message_type == "image" %}
+                                                {% if  message.file %}
+
+                        <img src="{{ message.file.url }}" class="w-40 h-40 rounded-lg">
+                                                      {% endif %}
+                    {% elif message.message_type == "video" %}
+                                                                                                {% if  message.file %}
+
+                        <video controls class="w-60 h-40">
+                            <source src="{{ message.file.url }}" type="video/mp4">
+                        </video>
+                                                   {% endif %}
+
+                    {% elif message.message_type == "file" %}
+                                                  {% if  message.file %}
+                        <a href="{{ message.file.url }}" download class="text-blue-500">📎 دانلود فایل</a>
+                                                      {% endif %}
+                    {% elif message.message_type == "voice" %}
+                                                  {% if  message.file %}
+                        <audio controls>
+                            <source src="{{ message.file.url }}" type="audio/mpeg">
+                        </audio>
+                                                     {% endif %}
+
+
+
+                                                 {% endif %}
+                                            <div class="flex items-center justify-between">
+                                                <span class="text-xs text-blue-100/90"> {{ message.created_at }}</span>
+                                                <div class="flex items-center gap-1">
+                                                    <!-- Message Status -->
+                                                    <svg class="w-3 h-3 text-blue-300" fill="currentColor" viewBox="0 0 12 12">
+                                                        <path d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z"/>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Context Menu -->
+                                    <div class="absolute left-0 -translate-x-full top-1/2 -translate-y-1/2 opacity-0 hover:opacity-100 transition-opacity">
+                                        <button class="p-1.5 text-gray-400 hover:text-gray-600">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+
+
+                        {% endfor %}
+
+
+
+
+
+                        </div>
+
+                       {% if request.user == channel.owner %}
+                        <!-- Input area -->
+                        <div class="pt-4 border-t border-gray-100">
+                                <div class="flex flex-row-reverse items-center gap-2">
+                                    <!-- Send Button -->
+                                    <button onclick="sendMessage()" class="p-2 text-blue-500 hover:bg-gray-50 rounded-xl transition-colors">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                                        </svg>
+                                    </button>
+
+                                    <!-- Attach File Button -->
+                               <label for="fileInput" class="cursor-pointer p-2 text-gray-500 hover:text-blue-500 hover:bg-gray-50 rounded-xl transition-colors">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/>
+    </svg>
+</label>
+<input id="fileInput" type="file" class="hidden">
+
+                                    <!-- Input Field -->
+                                    <input
+                                        type="text" id="messageInput"
+                                        class="flex-1 p-3 text-sm rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:bg-white transition-all placeholder:text-gray-400"
+                                        placeholder="پیامی تایپ کنید..."
+                                    >
+                                </div>
+                            </div>
+
+                       {% endif %}
+
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="text-center text-gray-400 py-4">
+                    <p class="text-sm">© ۱۴۰۳ فیوژن. تمامی حقوق محفوظ است.</p>
+                </div>
+            </main>
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+
+        <!-- Mobile Sidebar -->
+<div class="mobile-sidebar md:hidden">
+    <div class="sidebar-content">
+        <div class="flex flex-col flex-1 overflow-y-auto">
+            <!-- Profile Section: Compact and Elegant -->
+            <div class="w-3/4 mx-auto p-4 pt-8 pu-2 bg-gradient-to-br from-emerald-500/60 to-green-200/40 rounded-b-xl shadow-sm">
+                <div class="flex items-center gap-3">
+                    <img
+                        class="w-12 h-12 rounded-full object-cover border-2 border-[#4FEBAF] transition-transform duration-300 ease-in-out hover:scale-110 hover:shadow-md"
+                        src="{% static 'chat/images/image.png' %}"
+                        alt="User Profile"
+                    >
+                    <div class="flex-1 text-right">
+                       <h2 class="text-base font-semibold text-white"> {{ request.user.consultant_profile.consultant_name }}</h2>
+
+                            <p class="text-green-200 text-xs mt-1" style="direction: ltr;">zarfiat: {{ request.user.consultant_profile.consultant_stu.count }} </p>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation: Clean and Organized -->
+            <nav class="flex flex-col flex-1 p-4 gap-2">
+                <a href="#dashboard" class="group flex items-center px-4 py-3 text-gray-100 hover:bg-[#4FEBAF] hover:bg-opacity-20 rounded-lg transition-all duration-300 ease-in-out" aria-label="Dashboard">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 text-green-200 group-hover:text-white transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <rect x="4" y="4" width="6" height="6" rx="1" />
+                        <rect x="14" y="4" width="6" height="6" rx="1" />
+                        <rect x="4" y="14" width="6" height="6" rx="1" />
+                        <rect x="14" y="14" width="6" height="6" rx="1" />
+                    </svg>
+                    <span class="text-sm font-medium">داشبورد</span>
+                </a>
+                <a href="#messages" class="group flex items-center px-4 py-3 text-gray-100 hover:bg-[#4FEBAF] hover:bg-opacity-20 rounded-lg transition-all duration-300 ease-in-out" aria-label="Messages">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 text-green-200 group-hover:text-white transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path d="M20 4H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h5l3 3 3-3h5a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z" />
+                    </svg>
+                    <span class="text-sm font-medium">پیام‌ها</span>
+                </a>
+                <a href="#channels" class="group flex items-center px-4 py-3 text-gray-100 hover:bg-[#4FEBAF] hover:bg-opacity-20 rounded-lg transition-all duration-300 ease-in-out" aria-label="Channels">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 text-green-200 group-hover:text-white transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 8.25h15m-16.5 7.5h15m-1.8-13.5-3.9 19.5m-2.1-19.5-3.9 19.5" />
+                    </svg>
+                    <span class="text-sm font-medium">کانال‌ها</span>
+                </a>
+                <a href="#evaluation" class="group flex items-center px-4 py-3 text-gray-100 hover:bg-[#4FEBAF] hover:bg-opacity-20 rounded-lg transition-all duration-300 ease-in-out" aria-label="Evaluation and Improvement">
+                    <img src="icons8-ai-100.png" class="h-5 w-5 ml-2 text-green-200 group-hover:brightness-0 group-hover:invert transition-all duration-300" alt="Evaluation Icon" />
+                    <span class="text-sm font-medium">ارزیابی و بهبود</span>
+                </a>
+                <a href="#blogs" class="group flex items-center px-4 py-3 text-gray-100 hover:bg-[#4FEBAF] hover:bg-opacity-20 rounded-lg transition-all duration-300 ease-in-out" aria-label="Blogs">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 text-green-200 group-hover:text-white transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm2 4h12m-12 4h8" />
+                    </svg>
+                    <span class="text-sm font-medium">بلاگ‌ها</span>
+                </a>
+                <a href="#profile" class="group flex items-center px-4 py-3 text-gray-100 hover:bg-[#4FEBAF] hover:bg-opacity-20 rounded-lg transition-all duration-300 ease-in-out" aria-label="Profile">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 text-green-200 group-hover:text-white transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="7" r="4" />
+                        <path d="M18 18v1a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-1c0-2.5 3-4 6-4s6 1.5 6 4z" />
+                    </svg>
+                    <span class="text-sm font-medium">پروفایل</span>
+                </a>
+                <a href="#support" class="group flex items-center px-4 py-3 text-gray-100 hover:bg-[#4FEBAF] hover:bg-opacity-20 rounded-lg transition-all duration-300 ease-in-out" aria-label="Support">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 text-green-200 group-hover:text-white transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z" />
+                    </svg>
+                    <span class="text-sm font-medium">پشتیبانی</span>
+                </a>
+            </nav>
+        </div>
+    </div>
+</div>
+        <script>
+          fetch("/get-token/")
+    .then(response => response.json())
+    .then(data => {
+        const token = data.token;
+        if (!token) {
+            console.error("❌ No token found in session!");
+            return;
+        }
+
+window.socket = new WebSocket(`ws://127.0.0.1:8001/ws/channel/{{ channel.username }}/?token=${token}`);
+
+        socket.onopen = () => console.log("✅ WebSocket متصل شد!");
+
+        // ✅ دریافت پیام‌های جدید
+
+
+        var opponentEmail = null;
+
+socket.onmessage = (e) => {
+    const data = JSON.parse(e.data);
+    console.log("Received message:", data);
+
+
+
+
+    if (data.type === "message" || data.type === "chat_message") {
+        console.log("📩 New message received:", data);
+        appendMessageToChat(data);
+    }
+};
+
+
+
+window.sendMessage = function () {
+    console.log("📢 تابع sendMessage اجرا شد!");  // ✅ چک کن که این لاگ ظاهر بشه
+
+    let input = document.getElementById("messageInput");
+    let fileInput = document.getElementById("fileInput");
+    let file = fileInput.files[0];
+
+    if (!window.socket || socket.readyState !== WebSocket.OPEN) {
+        console.error("❌ WebSocket بسته است.");
+        alert("اتصال WebSocket بسته شده است! لطفاً صفحه را رفرش کنید.");
+        return;
+    }
+
+    if (!input.value.trim() && !file) return alert("لطفا پیام یا فایل ارسال کنید!");
+
+    let messageData = {
+        type: "message",
+        message: input.value,
+        message_type: "text",
+        sender: "{{ request.user.username }}"
+    };
+
+    if (file) {
+        console.log("📁 فایلی انتخاب شده:", file.name);  // ✅ چک کن که این لاگ ظاهر بشه
+        const reader = new FileReader();
+        reader.onload = e => {
+            messageData.message_type = file.type.split('/')[0];
+            messageData.file_url = e.target.result;
+
+            console.log("📤 در حال ارسال فایل:", messageData.file_url?.slice(0, 50));  // ✅ چک کن که مقدار داره
+            socket.send(JSON.stringify(messageData));
+        };
+        reader.readAsDataURL(file);
+    } else {
+        console.log("📤 در حال ارسال پیام:", messageData);
+        socket.send(JSON.stringify(messageData));
+    }
+
+    input.value = "";
+    fileInput.value = "";
+};
+
+
+
+
+        document.getElementById("sendButton").addEventListener("click", sendMessage);
+    })
+    .catch(error => console.error("❌ Error fetching token:", error));
+
+function appendMessageToChat(data) {
+    const messagesDiv = document.querySelector(".scroll-smooth");
+    let messageElement = document.createElement("div");
+    if (!messagesDiv) {
+        console.error("عنصر چت پیدا نشد!");
+        }
+
+    if (data.sender === "{{ request.user.username }}") {
+        messageElement.classList.add("flex", "justify-start");
+        messageElement.innerHTML = `
+            <div class="relative max-w-xs md:max-w-md">
+                <div class="bg-gradient-to-l from-blue-500 to-blue-600 text-white p-3 rounded-xl rounded-es-sm shadow-sm">
+                    <div class="flex flex-col gap-1.5">
+                        ${generateMessageContent(data)}
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs text-blue-100/90">${new Date().toLocaleTimeString()}</span>
+                            <div class="flex items-center gap-1">
+                                <svg class="w-3 h-3 text-blue-300" fill="currentColor" viewBox="0 0 12 12">
+                                    <path d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+    } else {
+        messageElement.classList.add("flex", "justify-end");
+        messageElement.innerHTML = `
+            <div class="bg-gray-50 p-3 rounded-xl max-w-xs md:max-w-md text-right transition-all hover:shadow-sm">
+                ${generateMessageContent(data)}
+                <p class="text-xs text-gray-400 mt-1">${new Date().toLocaleTimeString()}</p>
+            </div>`;
+    }
+
+    messagesDiv.appendChild(messageElement);
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
+
+
+function generateMessageContent(data) {
+    // 1. بررسی وجود داده‌های ضروری
+    if (!data) {
+        console.error("داده پیام وجود ندارد!");
+        return '<p class="text-red-500">خطا در نمایش پیام</p>';
+    }
+
+    // 2. مدیریت پیام‌های متنی
+    if (data.message_type === "text") {
+        return `<p class="text-sm leading-snug text-right">${data.message || ''}</p>`;
+    }
+
+    // 3. بررسی و اصلاح مسیر فایل
+    let fileUrl = data.file_url || '';
+
+    // فقط اگر فایل URL دارد و از نوع media است اصلاح شود
+    if (fileUrl && !fileUrl.startsWith("http") && !fileUrl.startsWith("/media/")) {
+        fileUrl = `/media/${fileUrl}`;
+    }
+
+    // 4. تولید محتوا بر اساس نوع
+    switch(data.message_type) {
+        case "image":
+            return `<img src="${fileUrl}" class="w-40 h-40 rounded-lg"
+                     onerror="this.onerror=null;this.src='/static/images/default-image.png'">`;
+
+        case "video":
+            return `<video controls class="w-60 h-40">
+                      <source src="${fileUrl}" type="video/mp4">
+                      مرورگر شما از ویدیو پشتیبانی نمی‌کند.
+                    </video>`;
+
+        case "voice":
+            return `<audio controls>
+                      <source src="${fileUrl}" type="audio/mpeg">
+                      مرورگر شما از صدا پشتیبانی نمی‌کند.
+                    </audio>`;
+
+        default:
+            if (fileUrl) {
+                return `<a href="${fileUrl}" download class="text-blue-500">📎 دانلود فایل</a>`;
+            }
+            return '<p class="text-red-500">نوع پیام نامعتبر</p>';
+    }
+}
+
+
+        </script>
+
+    </div>
+<script src="{% static 'chat/script.js' %}"></script>
+</body>
+</html>
