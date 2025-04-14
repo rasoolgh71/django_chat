@@ -7,7 +7,6 @@ app_name = "chat"
 urlpatterns = [
     path("chat/<int:pk>/", ConversationView.as_view(), name="conversation"),
 
-    path("chat/list/", ConversationListView.as_view(), name="conversation_list"),
     path("chat/createconversation/", CreateConversationAjaxView.as_view(), name="create_conversation_ajax"),
 
     path("chat/channelcreate/", ChannelCreateView.as_view(), name="channel_create"),

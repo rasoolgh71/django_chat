@@ -33,52 +33,6 @@
                 </div>
 
                 <!-- Navigation: Clean and Organized -->
-                <nav class="flex flex-col flex-1 p-4 gap-2">
-                    <a href="#dashboard" class="group flex items-center px-4 py-2 text-white hover:bg-[#4FEBAF]/20 rounded-lg transition-all duration-300 ease-in-out">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 text-green-200 group-hover:text-white transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <rect x="4" y="4" width="6" height="6" rx="1" />
-                            <rect x="14" y="4" width="6" height="6" rx="1" />
-                            <rect x="4" y="14" width="6" height="6" rx="1" />
-                            <rect x="14" y="14" width="6" height="6" rx="1" />
-                        </svg>
-                        <span class="text-sm font-medium">داشبورد</span>
-                    </a>
-                    <a href="#messages" class="group flex items-center px-4 py-2 text-white hover:bg-[#4FEBAF]/20 rounded-lg transition-all duration-300 ease-in-out">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 text-green-200 group-hover:text-white transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path d="M20 4H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h5l3 3 3-3h5a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z" />
-                        </svg>
-                        <span class="text-sm font-medium">فیوگرام</span>
-                    </a>
-                    <a href="#channels" class="group flex items-center px-4 py-2 text-white hover:bg-[#4FEBAF]/20 rounded-lg transition-all duration-300 ease-in-out">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 text-green-200 group-hover:text-white transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 8.25h15m-16.5 7.5h15m-1.8-13.5-3.9 19.5m-2.1-19.5-3.9 19.5" />
-                        </svg>
-                        <span class="text-sm font-medium">کانال‌ها</span>
-                    </a>
-                    <a href="#evaluation" class="group flex items-center px-4 py-2 text-white hover:bg-[#4FEBAF]/20 rounded-lg transition-all duration-300 ease-in-out">
-                        <img src="icons8-ai-100.png" class="h-5 w-5 ml-2 text-green-200 group-hover:brightness-0 group-hover:invert transition-all duration-300" alt="icon" />
-                        <span class="text-sm font-medium">ارزیابی و بهبود</span>
-                    </a>
-                    <a href="#blogs" class="group flex items-center px-4 py-2 text-white hover:bg-[#4FEBAF]/20 rounded-lg transition-all duration-300 ease-in-out">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-6 ml-1 text-green-200 group-hover:text-white transition-colors duration-300" fill="none" viewBox="0 0 14 30" stroke="currentColor" stroke-width="2">
-                            <path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm2 4h12m-12 4h8" />
-                        </svg>
-                        <span class="text-sm font-medium">بلاگ‌ها</span>
-                    </a>
-                    <a href="#profile" class="group flex items-center px-4 py-2 text-white hover:bg-[#4FEBAF]/20 rounded-lg transition-all duration-300 ease-in-out">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 text-green-200 group-hover:text-white transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="7" r="4" />
-                            <path d="M18 18v1a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-1c0-2.5 3-4 6-4s6 1.5 6 4z" />
-                        </svg>
-                        <span class="text-sm font-medium">پروفایل</span>
-                    </a>
-                    <a href="#support" class="group flex items-center px-4 py-2 text-white hover:bg-[#4FEBAF]/20 rounded-lg transition-all duration-300 ease-in-out">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 text-green-200 group-hover:text-white transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z" />
-                        </svg>
-                        <span class="text-sm font-medium">پشتیبانی</span>
-                    </a>
-                </nav>
             </div>
         </aside>
         <!-- Main Content Section -->
@@ -205,34 +159,6 @@
                                     </div>
 
                                     <!-- Friends Items -->
-                                    <div class="space-y-2">
-                                        <!-- Friend Item -->
-                                        {% for conversation in conversations %}
-
-                                         <div class="flex items-center gap-3 p-2 rounded-xl hover:bg-gray-50 transition-colors cursor-pointer group" onclick="selectFriend('friend1')">
-                                            <div class="relative">
-                                                <img src="{% static 'chat/images/image2.jpg' %}"
-                                                    class="w-10 h-10 rounded-lg object-cover shadow-sm">
-                                                <div class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-400 rounded-full border-2 border-white"></div>
-                                            </div>
-
-                                            <a href="{% url 'chat:conversation_consultant' conversation.uuid %}" class="flex-1 min-w-0">
-                                                <p class="text-sm font-medium text-gray-800 truncate">   {{ conversation.student.student_name }}</p>
-                                                <p class="text-xs text-gray-400 truncate">major: </p>
-                                            </a>
-                                            <button class="opacity-0 group-hover:opacity-100 p-1.5 text-blue-500 hover:bg-blue-50 rounded-lg transition-all">
-                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                                                </svg>
-                                            </button>
-                                        </div>
-
-
-
-
-
-                                    {% endfor %}
-                                    </div>
 
                                     <!-- Search Results Section -->
                                     <div class="mt-6 border-t border-gray-100 pt-4">
@@ -289,33 +215,6 @@
                                     </div>
 
                                     <!-- Channel Items -->
-                                    <div class="space-y-2">
-                                        <!-- Channel Item -->
-                                        {% for channels in joined_channels %}
-                                        <div class="flex items-center gap-3 p-2 rounded-xl hover:bg-gray-50 transition-colors cursor-pointer">
-                                            <div class="relative">
-                                                <div class="w-10 h-10 bg-purple-500 rounded-lg flex items-center justify-center text-white text-xl font-bold">
-                                                    UI
-                                                </div>
-                                            </div>
-                                            <a href="{% url 'chat:consultant_channel_detail' channels.id %}" class="flex-1 min-w-0">
-                                                <p class="text-sm font-medium text-gray-800 truncate">{{ channels.name }}</p>
-                                                <p class="text-xs text-gray-400 truncate">{{ channels.members.count }}</p>
-                                            </a>
-                                            <a  class="opacity-0 group-hover:opacity-100 p-1.5 text-blue-500 hover:bg-blue-50 rounded-lg transition-all">
-                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                                                </svg>
-                                            </a>
-                                        </div>
-                                        {% endfor %}
-
-
-
-
-
-                                        <!-- More Channels... -->
-                                    </div>
 
                                     <!-- Discover Channels -->
                                     <div class="mt-6 border-t border-gray-100 pt-4">
@@ -492,7 +391,7 @@
 
                         </div>
 
-                       {% if request.user == channel.owner %}
+{% if channel.owner == user_test %}
                         <!-- Input area -->
                         <div class="pt-4 border-t border-gray-100">
                                 <div class="flex flex-row-reverse items-center gap-2">
@@ -565,225 +464,118 @@
             </div>
 
             <!-- Navigation: Clean and Organized -->
-            <nav class="flex flex-col flex-1 p-4 gap-2">
-                <a href="#dashboard" class="group flex items-center px-4 py-3 text-gray-100 hover:bg-[#4FEBAF] hover:bg-opacity-20 rounded-lg transition-all duration-300 ease-in-out" aria-label="Dashboard">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 text-green-200 group-hover:text-white transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <rect x="4" y="4" width="6" height="6" rx="1" />
-                        <rect x="14" y="4" width="6" height="6" rx="1" />
-                        <rect x="4" y="14" width="6" height="6" rx="1" />
-                        <rect x="14" y="14" width="6" height="6" rx="1" />
-                    </svg>
-                    <span class="text-sm font-medium">داشبورد</span>
-                </a>
-                <a href="#messages" class="group flex items-center px-4 py-3 text-gray-100 hover:bg-[#4FEBAF] hover:bg-opacity-20 rounded-lg transition-all duration-300 ease-in-out" aria-label="Messages">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 text-green-200 group-hover:text-white transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path d="M20 4H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h5l3 3 3-3h5a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z" />
-                    </svg>
-                    <span class="text-sm font-medium">پیام‌ها</span>
-                </a>
-                <a href="#channels" class="group flex items-center px-4 py-3 text-gray-100 hover:bg-[#4FEBAF] hover:bg-opacity-20 rounded-lg transition-all duration-300 ease-in-out" aria-label="Channels">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 text-green-200 group-hover:text-white transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 8.25h15m-16.5 7.5h15m-1.8-13.5-3.9 19.5m-2.1-19.5-3.9 19.5" />
-                    </svg>
-                    <span class="text-sm font-medium">کانال‌ها</span>
-                </a>
-                <a href="#evaluation" class="group flex items-center px-4 py-3 text-gray-100 hover:bg-[#4FEBAF] hover:bg-opacity-20 rounded-lg transition-all duration-300 ease-in-out" aria-label="Evaluation and Improvement">
-                    <img src="icons8-ai-100.png" class="h-5 w-5 ml-2 text-green-200 group-hover:brightness-0 group-hover:invert transition-all duration-300" alt="Evaluation Icon" />
-                    <span class="text-sm font-medium">ارزیابی و بهبود</span>
-                </a>
-                <a href="#blogs" class="group flex items-center px-4 py-3 text-gray-100 hover:bg-[#4FEBAF] hover:bg-opacity-20 rounded-lg transition-all duration-300 ease-in-out" aria-label="Blogs">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 text-green-200 group-hover:text-white transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm2 4h12m-12 4h8" />
-                    </svg>
-                    <span class="text-sm font-medium">بلاگ‌ها</span>
-                </a>
-                <a href="#profile" class="group flex items-center px-4 py-3 text-gray-100 hover:bg-[#4FEBAF] hover:bg-opacity-20 rounded-lg transition-all duration-300 ease-in-out" aria-label="Profile">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 text-green-200 group-hover:text-white transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="7" r="4" />
-                        <path d="M18 18v1a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-1c0-2.5 3-4 6-4s6 1.5 6 4z" />
-                    </svg>
-                    <span class="text-sm font-medium">پروفایل</span>
-                </a>
-                <a href="#support" class="group flex items-center px-4 py-3 text-gray-100 hover:bg-[#4FEBAF] hover:bg-opacity-20 rounded-lg transition-all duration-300 ease-in-out" aria-label="Support">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 text-green-200 group-hover:text-white transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z" />
-                    </svg>
-                    <span class="text-sm font-medium">پشتیبانی</span>
-                </a>
-            </nav>
         </div>
     </div>
 </div>
-        <script>
-          fetch("/get-token/")
-    .then(response => response.json())
-    .then(data => {
-        const token = data.token;
-        if (!token) {
-            console.error("❌ No token found in session!");
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const channelUsername = "{{ channel.username }}";
+    const currentUser = "{{ request.user.email }}";
+    const socket = new WebSocket(`ws://${window.location.hostname}:8001/ws/channel/${channelUsername}/`);
+
+    socket.onopen = () => console.log("✅ WebSocket متصل شد!");
+
+    socket.onmessage = (e) => {
+        const data = JSON.parse(e.data);
+        console.log("📩 پیام دریافتی:", data);
+
+        if (data.type === "chat_message" || data.type === "message") {
+            appendMessageToChat(data);
+        }
+    };
+
+    window.sendMessage = function () {
+        const input = document.getElementById("messageInput");
+        const fileInput = document.getElementById("fileInput");
+        const file = fileInput.files[0];
+
+        if (!socket || socket.readyState !== WebSocket.OPEN) {
+            alert("❌ اتصال WebSocket برقرار نیست!");
             return;
         }
 
-window.socket = new WebSocket(`ws://127.0.0.1:8001/ws/channel/{{ channel.username }}/?token=${token}`);
+        if (!input.value.trim() && !file) return alert("⚠️ لطفاً پیام یا فایل وارد کنید!");
 
-        socket.onopen = () => console.log("✅ WebSocket متصل شد!");
-
-        // ✅ دریافت پیام‌های جدید
-
-
-        var opponentEmail = null;
-
-socket.onmessage = (e) => {
-    const data = JSON.parse(e.data);
-    console.log("Received message:", data);
-
-
-
-
-    if (data.type === "message" || data.type === "chat_message") {
-        console.log("📩 New message received:", data);
-        appendMessageToChat(data);
-    }
-};
-
-
-
-window.sendMessage = function () {
-    console.log("📢 تابع sendMessage اجرا شد!");  // ✅ چک کن که این لاگ ظاهر بشه
-
-    let input = document.getElementById("messageInput");
-    let fileInput = document.getElementById("fileInput");
-    let file = fileInput.files[0];
-
-    if (!window.socket || socket.readyState !== WebSocket.OPEN) {
-        console.error("❌ WebSocket بسته است.");
-        alert("اتصال WebSocket بسته شده است! لطفاً صفحه را رفرش کنید.");
-        return;
-    }
-
-    if (!input.value.trim() && !file) return alert("لطفا پیام یا فایل ارسال کنید!");
-
-    let messageData = {
-        type: "message",
-        message: input.value,
-        message_type: "text",
-        sender: "{{ request.user.username }}"
-    };
-
-    if (file) {
-        console.log("📁 فایلی انتخاب شده:", file.name);  // ✅ چک کن که این لاگ ظاهر بشه
-        const reader = new FileReader();
-        reader.onload = e => {
-            messageData.message_type = file.type.split('/')[0];
-            messageData.file_url = e.target.result;
-
-            console.log("📤 در حال ارسال فایل:", messageData.file_url?.slice(0, 50));  // ✅ چک کن که مقدار داره
-            socket.send(JSON.stringify(messageData));
+        const messageData = {
+            type: "message",
+            message: input.value,
+            message_type: "text",
         };
-        reader.readAsDataURL(file);
-    } else {
-        console.log("📤 در حال ارسال پیام:", messageData);
-        socket.send(JSON.stringify(messageData));
-    }
 
-    input.value = "";
-    fileInput.value = "";
-};
-
-
-
-
-        document.getElementById("sendButton").addEventListener("click", sendMessage);
-    })
-    .catch(error => console.error("❌ Error fetching token:", error));
-
-function appendMessageToChat(data) {
-    const messagesDiv = document.querySelector(".scroll-smooth");
-    let messageElement = document.createElement("div");
-    if (!messagesDiv) {
-        console.error("عنصر چت پیدا نشد!");
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                messageData.message_type = file.type.split("/")[0];
+                messageData.file_url = e.target.result;
+                socket.send(JSON.stringify(messageData));
+            };
+            reader.readAsDataURL(file);
+        } else {
+            socket.send(JSON.stringify(messageData));
         }
 
-    if (data.sender === "{{ request.user.username }}") {
-        messageElement.classList.add("flex", "justify-start");
-        messageElement.innerHTML = `
-            <div class="relative max-w-xs md:max-w-md">
-                <div class="bg-gradient-to-l from-blue-500 to-blue-600 text-white p-3 rounded-xl rounded-es-sm shadow-sm">
-                    <div class="flex flex-col gap-1.5">
-                        ${generateMessageContent(data)}
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs text-blue-100/90">${new Date().toLocaleTimeString()}</span>
-                            <div class="flex items-center gap-1">
-                                <svg class="w-3 h-3 text-blue-300" fill="currentColor" viewBox="0 0 12 12">
-                                    <path d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z"/>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>`;
-    } else {
-        messageElement.classList.add("flex", "justify-end");
-        messageElement.innerHTML = `
-            <div class="bg-gray-50 p-3 rounded-xl max-w-xs md:max-w-md text-right transition-all hover:shadow-sm">
+        input.value = "";
+        fileInput.value = "";
+    };
+
+    document.getElementById("sendButton").addEventListener("click", sendMessage);
+
+    function appendMessageToChat(data) {
+        const messagesDiv = document.querySelector(".scroll-smooth");
+        if (!messagesDiv) {
+            console.error("❌ عنصر چت پیدا نشد!");
+            return;
+        }
+
+        const messageElement = document.createElement("div");
+        const isSelf = data.sender === currentUser;
+        messageElement.classList.add("my-1", "flex", isSelf ? "justify-start" : "justify-end");
+
+        const content = `
+            <div class="${isSelf ? "bg-gradient-to-l from-blue-500 to-blue-600 text-white" : "bg-gray-100 text-black"} p-3 rounded-xl max-w-xs md:max-w-md shadow">
                 ${generateMessageContent(data)}
-                <p class="text-xs text-gray-400 mt-1">${new Date().toLocaleTimeString()}</p>
-            </div>`;
+                <div class="text-xs mt-1 ${isSelf ? "text-blue-100/90" : "text-gray-500"}">${new Date().toLocaleTimeString()}</div>
+            </div>
+        `;
+
+        messageElement.innerHTML = content;
+        messagesDiv.appendChild(messageElement);
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
     }
 
-    messagesDiv.appendChild(messageElement);
-    messagesDiv.scrollTop = messagesDiv.scrollHeight;
-}
+    function generateMessageContent(data) {
+        if (!data) return '<p class="text-red-500">خطا در نمایش پیام</p>';
 
+        if (data.message_type === "text") {
+            return `<p class="text-sm">${data.message || ""}</p>`;
+        }
 
-function generateMessageContent(data) {
-    // 1. بررسی وجود داده‌های ضروری
-    if (!data) {
-        console.error("داده پیام وجود ندارد!");
-        return '<p class="text-red-500">خطا در نمایش پیام</p>';
+        let fileUrl = data.file_url || "";
+        if (fileUrl && !fileUrl.startsWith("http") && !fileUrl.startsWith("/media/")) {
+            fileUrl = `/media/${fileUrl}`;
+        }
+
+        switch (data.message_type) {
+            case "image":
+                return `<img src="${fileUrl}" class="w-40 h-40 rounded-lg" alt="تصویر">`;
+            case "video":
+                return `<video controls class="w-60 h-40">
+                          <source src="${fileUrl}" type="video/mp4">
+                          مرورگر شما از ویدیو پشتیبانی نمی‌کند.
+                        </video>`;
+            case "voice":
+                return `<audio controls>
+                          <source src="${fileUrl}" type="audio/mpeg">
+                          مرورگر شما از صدا پشتیبانی نمی‌کند.
+                        </audio>`;
+            default:
+                return fileUrl
+                    ? `<a href="${fileUrl}" download class="text-blue-600">📎 دانلود فایل</a>`
+                    : '<p class="text-red-500">فایل نامعتبر</p>';
+        }
     }
-
-    // 2. مدیریت پیام‌های متنی
-    if (data.message_type === "text") {
-        return `<p class="text-sm leading-snug text-right">${data.message || ''}</p>`;
-    }
-
-    // 3. بررسی و اصلاح مسیر فایل
-    let fileUrl = data.file_url || '';
-
-    // فقط اگر فایل URL دارد و از نوع media است اصلاح شود
-    if (fileUrl && !fileUrl.startsWith("http") && !fileUrl.startsWith("/media/")) {
-        fileUrl = `/media/${fileUrl}`;
-    }
-
-    // 4. تولید محتوا بر اساس نوع
-    switch(data.message_type) {
-        case "image":
-            return `<img src="${fileUrl}" class="w-40 h-40 rounded-lg"
-                     onerror="this.onerror=null;this.src='/static/images/default-image.png'">`;
-
-        case "video":
-            return `<video controls class="w-60 h-40">
-                      <source src="${fileUrl}" type="video/mp4">
-                      مرورگر شما از ویدیو پشتیبانی نمی‌کند.
-                    </video>`;
-
-        case "voice":
-            return `<audio controls>
-                      <source src="${fileUrl}" type="audio/mpeg">
-                      مرورگر شما از صدا پشتیبانی نمی‌کند.
-                    </audio>`;
-
-        default:
-            if (fileUrl) {
-                return `<a href="${fileUrl}" download class="text-blue-500">📎 دانلود فایل</a>`;
-            }
-            return '<p class="text-red-500">نوع پیام نامعتبر</p>';
-    }
-}
-
-
-        </script>
+});
+</script>
 
     </div>
 <script src="{% static 'chat/script.js' %}"></script>

@@ -562,190 +562,123 @@
         </div>
     </div>
 </div>
-        <script>
-          fetch("/get-token/")
-    .then(response => response.json())
-    .then(data => {
-        const token = data.token;
-        if (!token) {
-            console.error("❌ No token found in session!");
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const conversationId = "{{ conversation.pk }}";
+    const currentUser = "{{ request.user.email }}";
+    const socket = new WebSocket(`ws://${window.location.hostname}:8001/ws/chat/${conversationId}/`);
+
+    socket.onopen = () => console.log("✅ WebSocket متصل شد!");
+
+    let opponentEmail = null;
+
+    socket.onmessage = (e) => {
+        const data = JSON.parse(e.data);
+        console.log("📩 پیام دریافت شد:", data);
+
+        switch (data.type) {
+            case "opponent_email":
+                opponentEmail = data.email;
+                break;
+
+            case "online_status":
+                if (data.user === opponentEmail) updateOnlineStatus(data.online);
+                break;
+
+            case "chat_message":  // ✅ نوع صحیح پیام از سرور
+                appendMessageToChat(data);
+                break;
+        }
+    };
+
+    function updateOnlineStatus(isOnline) {
+        const statusElement = document.getElementById("online_status");
+        const statusPoint = document.getElementById("online_point");
+
+        statusElement.innerText = isOnline ? "آنلاین" : "آفلاین";
+        statusElement.classList.toggle("text-green-600", isOnline);
+        statusElement.classList.toggle("text-red-600", !isOnline);
+        statusPoint.classList.toggle("bg-green-400", isOnline);
+        statusPoint.classList.toggle("bg-red-400", !isOnline);
+    }
+
+    window.sendMessage = function () {
+        const input = document.getElementById("messageInput");
+        const fileInput = document.getElementById("fileInput");
+        const file = fileInput.files[0];
+
+        if (!socket || socket.readyState !== WebSocket.OPEN) {
+            alert("WebSocket قطع است! صفحه را رفرش کنید.");
             return;
         }
 
-        window.socket = new WebSocket(`ws://127.0.0.1:8001/ws/chat/{{ conversation.uuid }}/?token=${token}`);
+        if (!input.value.trim() && !file) return alert("لطفاً پیام یا فایل وارد کنید!");
 
-        socket.onopen = () => console.log("✅ WebSocket متصل شد!");
+        let messageData = {
+            type: "message",
+            message: input.value,
+            message_type: "text",
+        };
 
-        // ✅ دریافت پیام‌های جدید
-
-
-        var opponentEmail = null;
-
-socket.onmessage = (e) => {
-    const data = JSON.parse(e.data);
-    console.log("Received message:", data);
-
-    if (data.type === "opponent_email") {
-        opponentEmail = data.email;
-        console.log("Opponent email:", opponentEmail);
-    }
-
-    if (data.type === "online_status") {
-        console.log("Data user:", data.user, "Opponent email:", opponentEmail);
-
-        if (opponentEmail && data.user === opponentEmail) {  // 🔹 بررسی وجود opponentEmail قبل از پردازش
-            let status_element = document.getElementById("online_status");
-            let status_point = document.getElementById("online_point");
-
-            if (data.online) {
-                console.log("✅ Opponent is online");
-                status_element.innerText = "آنلاین";
-                status_element.classList.add("text-green-600");
-                status_element.classList.remove("text-red-600");
-                status_point.classList.add("bg-green-400");
-                status_point.classList.remove("bg-red-400");
-            } else {
-                console.log("❌ Opponent is offline");
-                status_element.innerText = "آفلاین";
-                status_element.classList.add("text-red-600");
-                status_element.classList.remove("text-green-600");
-                status_point.classList.add("bg-red-400");
-                status_point.classList.remove("bg-green-400");
-            }
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                messageData.message_type = file.type.split('/')[0];
+                messageData.file_url = e.target.result;
+                socket.send(JSON.stringify(messageData));
+            };
+            reader.readAsDataURL(file);
+        } else {
+            socket.send(JSON.stringify(messageData));
         }
-    }
 
-    if (data.type === "message") {
-        console.log("📩 New message received:", data);
-        appendMessageToChat(data);
-    }
-};
-
-
-
-window.sendMessage = function () {
-    console.log("📢 تابع sendMessage اجرا شد!");  // ✅ چک کن که این لاگ ظاهر بشه
-
-    let input = document.getElementById("messageInput");
-    let fileInput = document.getElementById("fileInput");
-    let file = fileInput.files[0];
-
-    if (!window.socket || socket.readyState !== WebSocket.OPEN) {
-        console.error("❌ WebSocket بسته است.");
-        alert("اتصال WebSocket بسته شده است! لطفاً صفحه را رفرش کنید.");
-        return;
-    }
-
-    if (!input.value.trim() && !file) return alert("لطفا پیام یا فایل ارسال کنید!");
-
-    let messageData = {
-        type: "message",
-        message: input.value,
-        message_type: "text",
-        sender: "{{ request.user.username }}"
+        input.value = "";
+        fileInput.value = "";
     };
 
-    if (file) {
-        console.log("📁 فایلی انتخاب شده:", file.name);  // ✅ چک کن که این لاگ ظاهر بشه
-        const reader = new FileReader();
-        reader.onload = e => {
-            messageData.message_type = file.type.split('/')[0];
-            messageData.file_url = e.target.result;
+    document.getElementById("sendButton").addEventListener("click", sendMessage);
 
-            console.log("📤 در حال ارسال فایل:", messageData.file_url?.slice(0, 50));  // ✅ چک کن که مقدار داره
-            socket.send(JSON.stringify(messageData));
-        };
-        reader.readAsDataURL(file);
-    } else {
-        console.log("📤 در حال ارسال پیام:", messageData);
-        socket.send(JSON.stringify(messageData));
-    }
+    function appendMessageToChat(data) {
+        const messagesDiv = document.querySelector(".scroll-smooth");
+        const messageElement = document.createElement("div");
+        const isSelf = data.sender === currentUser;
 
-    input.value = "";
-    fileInput.value = "";
-};
+        messageElement.classList.add("my-1", "flex", isSelf ? "justify-start" : "justify-end");
 
-
-
-
-        document.getElementById("sendButton").addEventListener("click", sendMessage);
-    })
-    .catch(error => console.error("❌ Error fetching token:", error));
-
-function appendMessageToChat(data) {
-    const messagesDiv = document.querySelector(".scroll-smooth");
-    let messageElement = document.createElement("div");
-
-    if (data.sender === "{{ request.user.username }}") {
-        messageElement.classList.add("flex", "justify-start");
-        messageElement.innerHTML = `
-            <div class="relative max-w-xs md:max-w-md">
-                <div class="bg-gradient-to-l from-blue-500 to-blue-600 text-white p-3 rounded-xl rounded-es-sm shadow-sm">
-                    <div class="flex flex-col gap-1.5">
-                        ${generateMessageContent(data)}
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs text-blue-100/90">${new Date().toLocaleTimeString()}</span>
-                            <div class="flex items-center gap-1">
-                                <svg class="w-3 h-3 text-blue-300" fill="currentColor" viewBox="0 0 12 12">
-                                    <path d="M10.28 2.28L3.989 8.575 1.695 6.28A1 1 0 00.28 7.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 2.28z"/>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>`;
-    } else {
-        messageElement.classList.add("flex", "justify-end");
-        messageElement.innerHTML = `
-            <div class="bg-gray-50 p-3 rounded-xl max-w-xs md:max-w-md text-right transition-all hover:shadow-sm">
+        const content = `
+            <div class="${isSelf ? "bg-gradient-to-l from-blue-500 to-blue-600 text-white" : "bg-gray-100 text-black"} p-3 rounded-xl max-w-xs md:max-w-md shadow">
                 ${generateMessageContent(data)}
-                <p class="text-xs text-gray-400 mt-1">${new Date().toLocaleTimeString()}</p>
-            </div>`;
+                <div class="text-xs mt-1 ${isSelf ? "text-blue-100/90" : "text-gray-500"}">${new Date().toLocaleTimeString()}</div>
+            </div>
+        `;
+
+        messageElement.innerHTML = content;
+        messagesDiv.appendChild(messageElement);
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
     }
 
-    messagesDiv.appendChild(messageElement);
-    messagesDiv.scrollTop = messagesDiv.scrollHeight;
-}
+    function generateMessageContent(data) {
+        if (data.message_type === "text") {
+            return `<p class="text-sm">${data.message}</p>`;
+        }
 
-function generateMessageContent(data) {
-    console.log(32); // لاگ بررسی ورود تابع
+        let fileUrl = data.file_url;
+        if (!fileUrl) return `<p class="text-sm text-red-500">⚠️ فایل نامعتبر</p>`;
+        if (!fileUrl.startsWith("/media/")) fileUrl = `/media/${fileUrl}`;
 
-    // اگر پیام متنی باشد، `file_url` را بررسی نکن
-    if (data.message_type === "text") {
-        console.log(123); // بررسی پیام متنی
-        return `<p class="text-sm leading-snug text-right">${data.message}</p>`;
+        switch (data.message_type) {
+            case "image":
+                return `<img src="${fileUrl}" class="w-40 h-40 rounded-md" alt="تصویر">`;
+            case "video":
+                return `<video controls class="w-60 h-40"><source src="${fileUrl}" type="video/mp4"></video>`;
+            case "voice":
+                return `<audio controls><source src="${fileUrl}" type="audio/mpeg"></audio>`;
+            default:
+                return `<a href="${fileUrl}" download class="text-blue-600">📎 دانلود فایل</a>`;
+        }
     }
-
-    let fileUrl = data.file_url;
-
-    // اگر `file_url` مقدار نداشت، هشدار بده و برگرد
-    if (!fileUrl) {
-        console.warn("⚠️ `file_url` مقدار ندارد!", data);
-        return `<p class="text-sm leading-snug text-red-500">⚠️ فایل نامعتبر</p>`;
-    }
-
-    console.log("✅ File URL:", fileUrl); // بررسی مقدار `file_url`
-
-    // 🚀 بررسی و اصلاح مسیر
-    if (!fileUrl.startsWith("/media/")) {
-        fileUrl = `/media/${fileUrl}`;
-        console.log(1); // بررسی اصلاح مسیر
-    }
-
-    if (data.message_type === "image") {
-        return `<img src="${fileUrl}" class="w-40 h-40 rounded-lg" onload="this.style.opacity=1">`;
-    } else if (data.message_type === "video") {
-        return `<video controls class="w-60 h-40"><source src="${fileUrl}" type="video/mp4"></video>`;
-    } else if (data.message_type === "voice") {
-        return `<audio controls><source src="${fileUrl}" type="audio/mpeg"></audio>`;
-    } else {
-        return `<a href="${fileUrl}" download class="text-blue-500">📎 دانلود فایل</a>`;
-    }
-}
-
-
-
-        </script>
+});
+</script>
 
     </div>
 <script src="{% static 'chat/script.js' %}"></script>
