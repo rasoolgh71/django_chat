@@ -5,49 +5,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ایجاد کانال جدید</title>
+    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+        }
+    </style>
 </head>
-<body class="bg-gray-100 flex justify-center items-center h-screen">
+<body class="bg-gray-100 flex justify-center items-center min-h-screen p-4">
 
-    <div class="max-w-md w-full bg-white p-6 rounded-lg shadow-lg">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-4 text-center">➕ ایجاد کانال جدید</h2>
+    <div class="w-full max-w-md bg-white p-6 rounded-xl shadow-2xl">
+        <h2 class="text-2xl font-bold text-center text-blue-600 mb-6">➕ ایجاد کانال جدید</h2>
 
-        <form method="post" class="bg-white p-6 rounded-lg shadow-md space-y-4">
+        <form method="post" class="space-y-5">
             {% csrf_token %}
 
             <div>
-                <label class="block text-gray-700 text-sm font-bold mb-2">📌 نام کانال:</label>
+                <label class="block text-gray-700 text-sm font-medium mb-1">📌 نام کانال:</label>
                 {{ form.name }}
             </div>
 
             <div>
-                <label class="block text-gray-700 text-sm font-bold mb-2">🔹 یوزرنیم:</label>
+                <label class="block text-gray-700 text-sm font-medium mb-1">🔹 یوزرنیم:</label>
                 {{ form.username }}
                 {% if form.username.errors %}
-                    <p class="text-red-500 text-xs mt-1">{{ form.username.errors.0 }}</p>
+                    <p class="text-red-600 text-xs mt-1">{{ form.username.errors.0 }}</p>
                 {% endif %}
             </div>
 
             <div>
-                <label class="block text-gray-700 text-sm font-bold mb-2">📝 توضیحات:</label>
+                <label class="block text-gray-700 text-sm font-medium mb-1">📝 توضیحات:</label>
                 {{ form.description }}
             </div>
 
-            <button type="submit" class="w-full bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">
+            <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
                 ✅ ایجاد کانال
             </button>
         </form>
     </div>
 
     <script>
-        // اطمینان از نمایش صحیح فرم‌ها با استایل‌های Tailwind
         document.addEventListener("DOMContentLoaded", function () {
-            let inputs = document.querySelectorAll("input, textarea");
+            const inputs = document.querySelectorAll("input, textarea, select");
             inputs.forEach(input => {
-                input.classList.add("w-full", "border", "border-gray-300", "rounded", "p-2", "bg-white", "focus:border-blue-500", "focus:outline-none");
+                input.classList.add(
+                    "w-full", "border", "border-gray-300", "rounded-md", "p-2", "bg-white",
+                    "focus:outline-none", "focus:ring-2", "focus:ring-blue-500"
+                );
             });
         });
     </script>
-
 </body>
 </html>
