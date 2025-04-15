@@ -9,6 +9,14 @@
 - Profile picture zoom on click
 - Channel owner tools and options
 
+
+## Screenshots
+
+![Login Page](screenshots/channel_create.png)  
+![Chat Interface](screenshots/Chat.png)  
+![Channel View](screenshots/Channel.png)
+
+
 ## Technologies Used
 
 - Python 3.12
@@ -19,10 +27,16 @@
 - Tailwind CSS
 - HTML, JavaScript
 
-## Installation and Setup
+## You may need during installation
 
 ### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/yourusername/phusion-chat.git
 cd phusion-chat
+
+```
+
+### 2. Load Sample Test Data (Optional)
+```bash
+python3 manage.py loaddata fixtures/sample_data.json
