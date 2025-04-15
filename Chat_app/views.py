@@ -7,14 +7,14 @@ from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 
-from .models import *
-from .forms import *
+from .models import Conversation, Message, Channel, ChannelMember, ChannelMessage
+from .forms import ChannelCreateForm
 
 import base64, os, time
 
 
 # -------------------------
-# Conversation Detail View
+# Detail view for 1-on-1 conversations
 # -------------------------
 class ConversationView(DetailView):
     model = Conversation
@@ -22,6 +22,7 @@ class ConversationView(DetailView):
     context_object_name = "conversation"
 
     def dispatch(self, request, *args, **kwargs):
+        # Temporary login bypass for testing (use actual authentication in production)
         if not request.user.is_authenticated:
             request.user = get_user_model().objects.get(pk=1)
         return super().dispatch(request, *args, **kwargs)
@@ -34,6 +35,7 @@ class ConversationView(DetailView):
         user = self.request.user
         conversation = self.object
 
+        # Determine the user's conversations and the chat partner
         if user == conversation.user1:
             conversations = Conversation.objects.filter(user1=user)
             chat_partner = conversation.user2
@@ -44,6 +46,7 @@ class ConversationView(DetailView):
             conversations = Conversation.objects.none()
             chat_partner = None
 
+        # Add context data for rendering the chat UI
         context.update({
             "messages": Message.objects.all(),
             "joined_channels": Channel.objects.filter(members__user=user),
@@ -56,7 +59,7 @@ class ConversationView(DetailView):
 
 
 # -------------------------
-# Create Conversation (AJAX)
+# AJAX view to create a new conversation
 # -------------------------
 class CreateConversationAjaxView(View):
     def post(self, request):
@@ -73,14 +76,17 @@ class CreateConversationAjaxView(View):
         except get_user_model().DoesNotExist:
             return JsonResponse({"error": "Target user not found."}, status=404)
 
+        # Always create with smaller ID as user1
         user1, user2 = sorted([user, other_user], key=lambda u: u.id)
         conversation, _ = Conversation.objects.get_or_create(user1=user1, user2=user2)
 
-        return JsonResponse({"chat_url": reverse("conversation_detail", args=[conversation.pk])}, status=201)
+        return JsonResponse({
+            "chat_url": reverse("conversation_detail", args=[conversation.pk])
+        }, status=201)
 
 
 # -------------------------
-# Channel Detail View
+# View for displaying channel details
 # -------------------------
 class ChannelDetailView(DetailView):
     model = Channel
@@ -108,7 +114,7 @@ class ChannelDetailView(DetailView):
 
 
 # -------------------------
-# Create Channel
+# View to create a new channel
 # -------------------------
 class ChannelCreateView(CreateView):
     model = Channel
@@ -120,12 +126,13 @@ class ChannelCreateView(CreateView):
         form.instance.owner = user
         self.object = form.save()
 
+        # Automatically make creator the admin of the channel
         ChannelMember.objects.create(channel=self.object, user=user, role="admin")
         return redirect("chat:channel_detail", pk=self.object.pk)
 
 
 # -------------------------
-# Channel Management (Test Mode)
+# Basic channel management: join, leave, delete
 # -------------------------
 class ManageChannelView(View):
     def post(self, request):
@@ -159,7 +166,7 @@ class ManageChannelView(View):
 
 
 # -------------------------
-# File Upload Handler
+# File upload handler for base64-encoded files
 # -------------------------
 @csrf_exempt
 def upload_file(request):

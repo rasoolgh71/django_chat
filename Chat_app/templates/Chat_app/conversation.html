@@ -205,21 +205,16 @@
         messagesDiv.scrollTop = messagesDiv.scrollHeight;
       }
 
-      function generateMessageContent(data) {
-        if (data.message_type === "text") return `<p>${data.message}</p>`;
-        if (!data.file_url) return `<p class="text-red-500">❌ فایل نامعتبر</p>`;
-
-        switch (data.message_type) {
-          case "image":
-            return `<img src="${data.file_url}" class="rounded-lg w-40 h-40" alt="تصویر">`;
-          case "video":
-            return `<video controls class="w-60 h-40"><source src="${data.file_url}" type="video/mp4"></video>`;
-          case "voice":
-            return `<audio controls><source src="${data.file_url}" type="audio/mpeg"></audio>`;
-          default:
-            return `<a href="${data.file_url}" download class="text-indigo-600 underline">📎 فایل</a>`;
-        }
-      }
+  function generateMessageContent(data) {
+    if (data.message_type === "text") return `<p>${data.message}</p>`;
+    const fileUrl = data.file_url.startsWith("/") ? data.file_url : "/media/" + data.file_url;
+    switch (data.message_type) {
+      case "image": return `<img src="${fileUrl}" class="w-40 h-40 rounded-lg" alt="تصویر">`;
+      case "video": return `<video controls class="w-60 h-40"><source src="${fileUrl}" type="video/mp4"></video>`;
+      case "voice": return `<audio controls><source src="${fileUrl}" type="audio/mpeg"></audio>`;
+      default: return `<a href="${fileUrl}" download class="text-blue-600">📎 دانلود فایل</a>`;
+    }
+  }
     });
   </script>
   <script>const profilePic = document.getElementById("profilePic");

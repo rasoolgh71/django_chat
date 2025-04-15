@@ -26,7 +26,7 @@ User = get_user_model()
 online_users = {}
 
 # -------------------------------
-# ابزارهای وضعیت آنلاین
+# online states
 # -------------------------------
 def set_user_online(user_email):
     online_users[user_email] = True
@@ -39,7 +39,7 @@ def is_user_online(user_email):
 
 
 # -------------------------------
-# WebSocket برای چت خصوصی
+# WebSocket for private chat
 # -------------------------------
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
@@ -163,7 +163,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
 
 # -------------------------------
-# WebSocket برای چنل‌ها
+# WebSocket for channels
 # -------------------------------
 class ChannelConsumer(AsyncWebsocketConsumer):
     async def connect(self):
