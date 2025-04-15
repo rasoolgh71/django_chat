@@ -1,6 +1,4 @@
-# Phusion Channel Chat App
-
-Phusion is a real-time, channel-based chat application built with Django, Django Channels, and Tailwind CSS. It supports file sharing, responsive design, and a modern, user-friendly UI with RTL layout support.
+# Channel Chat App
 
 ## Features
 
