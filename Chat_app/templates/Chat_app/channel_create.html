@@ -2,59 +2,64 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ایجاد کانال جدید</title>
-    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body {
-            font-family: 'Vazirmatn', sans-serif;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ایجاد کانال جدید</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    body { font-family: 'Vazirmatn', sans-serif; }
+    .glass {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+  </style>
 </head>
-<body class="bg-gray-100 flex justify-center items-center min-h-screen p-4">
+<body class="min-h-screen bg-gradient-to-br from-purple-200 via-purple-300 to-indigo-400 flex items-center justify-center p-6">
 
-    <div class="w-full max-w-md bg-white p-6 rounded-xl shadow-2xl">
-        <h2 class="text-2xl font-bold text-center text-blue-600 mb-6">➕ ایجاد کانال جدید</h2>
+  <div class="max-w-lg w-full p-6 rounded-2xl shadow-2xl glass">
+    <h2 class="text-2xl font-bold text-center text-indigo-700 mb-6">➕ ایجاد کانال جدید</h2>
 
-        <form method="post" class="space-y-5">
-            {% csrf_token %}
+    <form method="post" class="space-y-5">
+      {% csrf_token %}
 
-            <div>
-                <label class="block text-gray-700 text-sm font-medium mb-1">📌 نام کانال:</label>
-                {{ form.name }}
-            </div>
+      <div>
+        <label class="block mb-1 text-sm font-medium text-gray-700">📌 نام کانال:</label>
+        {{ form.name }}
+      </div>
 
-            <div>
-                <label class="block text-gray-700 text-sm font-medium mb-1">🔹 یوزرنیم:</label>
-                {{ form.username }}
-                {% if form.username.errors %}
-                    <p class="text-red-600 text-xs mt-1">{{ form.username.errors.0 }}</p>
-                {% endif %}
-            </div>
+      <div>
+        <label class="block mb-1 text-sm font-medium text-gray-700">🔹 یوزرنیم:</label>
+        {{ form.username }}
+        {% if form.username.errors %}
+          <p class="text-red-500 text-xs mt-1">{{ form.username.errors.0 }}</p>
+        {% endif %}
+      </div>
 
-            <div>
-                <label class="block text-gray-700 text-sm font-medium mb-1">📝 توضیحات:</label>
-                {{ form.description }}
-            </div>
+      <div>
+        <label class="block mb-1 text-sm font-medium text-gray-700">📝 توضیحات:</label>
+        {{ form.description }}
+      </div>
 
-            <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                ✅ ایجاد کانال
-            </button>
-        </form>
-    </div>
+      <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 rounded-xl transition-all">
+        ✅ ایجاد کانال
+      </button>
+    </form>
+  </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const inputs = document.querySelectorAll("input, textarea, select");
-            inputs.forEach(input => {
-                input.classList.add(
-                    "w-full", "border", "border-gray-300", "rounded-md", "p-2", "bg-white",
-                    "focus:outline-none", "focus:ring-2", "focus:ring-blue-500"
-                );
-            });
-        });
-    </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      let inputs = document.querySelectorAll("input, textarea");
+      inputs.forEach(input => {
+        input.classList.add(
+          "w-full", "border", "border-gray-300", "rounded-xl",
+          "p-2.5", "bg-white", "focus:border-indigo-500", "focus:ring-1", "focus:ring-indigo-300", "focus:outline-none",
+          "transition-all"
+        );
+      });
+    });
+  </script>
+
 </body>
 </html>
