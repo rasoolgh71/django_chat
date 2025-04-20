@@ -170,6 +170,13 @@ document.addEventListener("DOMContentLoaded", () => {
   modalImage.addEventListener("click", () => {
       profileModal.classList.add("hidden");
   });
+  document.getElementById("messageInput").addEventListener("keypress", function (e) {
+    if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault(); // Prevent line break
+        sendMessage();
+    }
+});
+
   </script>
 
 </body>

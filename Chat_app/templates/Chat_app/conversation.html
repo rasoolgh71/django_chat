@@ -216,6 +216,13 @@
     }
   }
     });
+    document.getElementById("messageInput").addEventListener("keypress", function (e) {
+    if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault(); // Prevent line break
+        sendMessage();
+    }
+});
+
   </script>
   <script>const profilePic = document.getElementById("profilePic");
   const profileModal = document.getElementById("profileModal");
