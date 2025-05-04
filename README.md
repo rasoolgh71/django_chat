@@ -1,3 +1,4 @@
+* https://github.com/Artyomza312/chat_repo
 # Channel Chat App
 
 ## Features
@@ -40,3 +41,5 @@ cd phusion-chat
 ### 2. Load Sample Test Data (Optional)
 ```bash
 python3 manage.py loaddata fixtures/sample_data.json
+
+uvicorn your_project_name.asgi:application --host 0.0.0.0 --port 8000 --reload
