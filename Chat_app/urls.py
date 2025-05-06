@@ -7,13 +7,14 @@ from .views import (
     CreateConversationAjaxView,
     ChannelCreateView,
     ChannelDetailView,
-    ManageChannelView,
+    ManageChannelView,index
 )
 
 app_name = "chat"
 
 urlpatterns = [
     # Route for viewing a conversation by its primary key
+    path("", index, name="index"),
     path("chat/<int:pk>/", ConversationView.as_view(), name="conversation"),
 
     # AJAX route to create a new conversation (likely from frontend interaction)

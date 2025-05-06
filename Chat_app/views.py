@@ -9,6 +9,7 @@ from django.conf import settings
 
 from .models import Conversation, Message, Channel, ChannelMember, ChannelMessage
 from .forms import ChannelCreateForm
+from django.shortcuts import render, redirect
 
 import base64, os, time
 
@@ -16,6 +17,11 @@ import base64, os, time
 # -------------------------
 # Detail view for 1-on-1 conversations
 # -------------------------
+
+
+def index(request):
+    return render(request, 'chat_app/chat.html', {'title': 'صفحه اصلی'})
+
 class ConversationView(DetailView):
     model = Conversation
     template_name = "Chat_app/conversation.html"

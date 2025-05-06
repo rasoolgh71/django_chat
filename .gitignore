@@ -22,7 +22,7 @@ pip-log.txt
 # Django Static & Media
 /media/
 staticfiles/
-static/
+
 
 # macOS
 .DS_Store
