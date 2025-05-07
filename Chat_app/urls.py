@@ -14,7 +14,7 @@ app_name = "chat"
 
 urlpatterns = [
     # Route for viewing a conversation by its primary key
-    path("index", index, name="index"),
+    path("", index, name=""),
     path("chat/<int:pk>/", ConversationView.as_view(), name="conversation"),
 
     # AJAX route to create a new conversation (likely from frontend interaction)

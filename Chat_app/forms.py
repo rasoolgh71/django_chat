@@ -29,7 +29,7 @@ class ConversationForm(forms.ModelForm):
 class ChannelCreateForm(forms.ModelForm):
     class Meta:
         model = Channel
-        fields = ["name", "description", "username"]
+        fields = ["name", "description", "username", "image"]
 
     def clean_username(self):
         username = self.cleaned_data["username"]

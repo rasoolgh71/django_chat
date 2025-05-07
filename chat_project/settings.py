@@ -55,8 +55,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'chat_project.urls'
 LOGIN_URL = reverse_lazy('login')
-AUTH_USER_MODEL = 'users.User'
-LOGIN_REDIRECT_URL = '/index'
+AUTH_USER_MODEL = 'Chat_app.CustomUser'
+LOGIN_REDIRECT_URL = '/home'
 
 ASGI_APPLICATION = "chat_project.asgi.application"
 
