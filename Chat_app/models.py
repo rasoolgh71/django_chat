@@ -4,6 +4,7 @@ from django.utils.text import slugify
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 import uuid
 
+
 # -----------------------------------------
 # Custom user model manager
 # -----------------------------------------

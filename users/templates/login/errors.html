@@ -1,0 +1,21 @@
+   {% if form.errors %}
+        <div class="col-span-12 lg:col-span-6">
+            <div class="intro-y box">
+                <div id="icon-dismiss-alert" class="p-5">
+                    <div class="preview" style="direction: rtl">
+                        {% for index,field in form.errors.items %}
+                            {% for error in field %}
+                                <div class="alert alert-danger alert-dismissible show flex items-center mb-2"
+                                     role="alert">
+                                    <i data-feather="alert-circle" class="w-6 h-6 mr-2"></i> {{ error }}
+                                    <button type="button" class="btn-close text-white" data-tw-dismiss="alert"
+                                            aria-label="Close"><i data-feather="x" class="w-4 h-4"></i></button>
+                                </div>
+
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}

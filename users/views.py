@@ -1,6 +1,10 @@
-from django.shortcuts import render,redirect
-from django.views.generic import CreateView, UpdateView, ListView, TemplateView,View
+from django.shortcuts import render, redirect
+from django.views.generic import CreateView, UpdateView, ListView, TemplateView, View
 from django.contrib.auth.views import LoginView
+from chat_project.log import log
+from django.contrib.auth.decorators import login_required
+from django.utils import timezone
+from django.contrib.auth import logout
 
 # Create your views here.
 
@@ -10,7 +14,7 @@ class UserLoginView(LoginView):
     برای لاگین شدن کاربر ب ایوزر نیم و پسوردد
 
     """
-    template_name = 'admin/login/login.html'
+    template_name = 'login/login.html'
 
     def get_form(self, form_class=None):
 

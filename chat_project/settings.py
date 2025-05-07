@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+from django.urls import reverse_lazy
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -37,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Chat_app'
+    'Chat_app',
+    'logs',
+    'users'
 ]
 
 MIDDLEWARE = [
@@ -51,6 +54,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'chat_project.urls'
+LOGIN_URL = reverse_lazy('login')
+AUTH_USER_MODEL = 'users.User'
+LOGIN_REDIRECT_URL = '/index'
 
 ASGI_APPLICATION = "chat_project.asgi.application"
 

@@ -12,6 +12,8 @@ from .forms import ChannelCreateForm
 from django.shortcuts import render, redirect
 
 import base64, os, time
+from django.contrib.auth.decorators import login_required
+from chat_project.utils import LoginRequiredMixin, CustomPermissionRequiredMixin
 
 
 # -------------------------
@@ -19,6 +21,7 @@ import base64, os, time
 # -------------------------
 
 
+@login_required
 def index(request):
     user = request.user
     all_channels = Channel.objects.all()
@@ -27,7 +30,8 @@ def index(request):
     return render(request, 'chat_app/chat.html',
                   {'all_channels': all_channels,'conversations': conversations})
 
-class ConversationView(DetailView):
+
+class ConversationView(LoginRequiredMixin,DetailView):
     model = Conversation
     template_name = "Chat_app/conversation.html"
     context_object_name = "conversation"
@@ -99,7 +103,7 @@ class CreateConversationAjaxView(View):
 # -------------------------
 # View for displaying channel details
 # -------------------------
-class ChannelDetailView(DetailView):
+class ChannelDetailView(LoginRequiredMixin,DetailView):
     model = Channel
     template_name = "Chat_app/channel_detail.html"
     context_object_name = "channel"
@@ -127,7 +131,7 @@ class ChannelDetailView(DetailView):
 # -------------------------
 # View to create a new channel
 # -------------------------
-class ChannelCreateView(CreateView):
+class ChannelCreateView(LoginRequiredMixin,CreateView):
     model = Channel
     form_class = ChannelCreateForm
     template_name = "Chat_app/channel_create.html"
@@ -145,7 +149,7 @@ class ChannelCreateView(CreateView):
 # -------------------------
 # Basic channel management: join, leave, delete
 # -------------------------
-class ManageChannelView(View):
+class ManageChannelView(LoginRequiredMixin,View):
     def post(self, request):
         action = request.POST.get("action")
         username = request.POST.get("username")
