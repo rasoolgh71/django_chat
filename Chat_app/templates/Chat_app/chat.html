@@ -1,4 +1,5 @@
 {% load static %}
+{% load chat_filter %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,101 +46,44 @@
       <!-- chat list -->
       <div id="chat-list" class="chat-list">
         <!-- user lists -->
-        <div id="friends" class="friends">
-          <!-- photo -->
-          <div class="profile friends-photo">
-            <img src="{% static 'images/ava2.jpg' %}" alt="">
-          </div>
-          
-          <div class="friends-credent">
-            <!-- name -->
-            <span class="friends-name">Mario Gomez</span>
-            <!-- last message -->
-            <span class="friends-message">Crap! I forgot my shoes. Can you bring extra pair for me?</span>
-          </div>
-          <!-- notification badge -->
-          <span class="badge notif-badge">7</span>
-        </div>
 
-        <div id="friends" class="friends">
-          <!-- photo -->
-          <div class="profile friends-photo">
-            <img src="{% static 'images/ava3.jpg' %}" alt="">
-          </div>
-          
-          <div class="friends-credent">
-            <!-- name -->
-            <span class="friends-name">Andre Silva</span>
-            <!-- last message -->
-            <span class="friends-message">How are you?</span>
-          </div>
-          <!-- notification badge -->
-          <span class="badge notif-badge">999</span>
-        </div>
+          {% for conv in conversations %}
+              <div id="friends" class="friends">
+                  <!-- photo -->
+                  <div class="profile friends-photo">
+                      <img src="{% static 'images/ava2.jpg' %}" alt="">
+                  </div>
 
-        <div id="friends" class="friends">
-          <!-- photo -->
-          <div class="profile friends-photo">
-            <img src="{% static 'images/ava5.jpg' %}" alt="">
-          </div>
-          
-          <div class="friends-credent">
-            <!-- name -->
-            <span class="friends-name">Marco Reus</span>
-            <!-- last message -->
-            <span class="friends-message">Sehr gud, Danke!</span>
-          </div>
-          <!-- notification badge -->
-          <span class="badge notif-badge">26</span>
-        </div>
+                  <div class="friends-credent">
+                      <!-- name -->
+                      <span class="friends-name">{{ conv.user2.last_name }}</span>
+                      <!-- last message -->
+                      <span class="friends-message">Crap! I forgot my shoes. Can you bring extra pair for me?</span>
+                  </div>
+                  <!-- notification badge -->
+                  <span class="badge notif-badge">7</span>
+              </div>
+          {% endfor %}
 
-        <div id="friends" class="friends">
-          <!-- photo -->
-          <div class="profile friends-photo">
-            <img src="{% static 'images/ava6.jpg' %}" alt="">
-          </div>
-          
-          <div class="friends-credent">
-            <!-- name -->
-            <span class="friends-name">Antoine Griezmann</span>
-            <!-- last message -->
-            <span class="friends-message">Let's 1v1 with me on FIFA20! Winner takes it all!</span>
-          </div>
-          <!-- notification badge -->
-          <span class="badge notif-badge">7</span>
-        </div>
 
-        <div id="friends" class="friends">
-          <!-- photo -->
-          <div class="profile friends-photo">
-            <img src="{% static 'images/ava7.jpg' %}" alt="">
-          </div>
-          
-          <div class="friends-credent">
-            <!-- name -->
-            <span class="friends-name">Manuel Neuer</span>
-            <!-- last message -->
-            <span class="friends-message">Congrats on winning Serie A for the 99th time!</span>
-          </div>
-          <!-- notification badge -->
-          <span class="badge notif-badge">7</span>
-        </div>
+          {% for item in all_channels %}
+              <div id="friends" class="friends">
+                  <!-- photo -->
+                  <div class="profile friends-photo">
+                      <img src="media/{{ item.image }}" alt="">
+                  </div>
 
-        <div id="friends" class="friends">
-          <!-- photo -->
-          <div class="profile friends-photo">
-            <img src="{% static 'images/ava1.jpg' %}" alt="">
-          </div>
-          
-          <div class="friends-credent">
-            <!-- name -->
-            <span class="friends-name">Mattia de Sciglio</span>
-            <!-- last message -->
-            <span class="friends-message">Hi, are you ready for the match?</span>
-          </div>
-          <!-- notification badge -->
-          <span class="badge notif-badge">7</span>
-        </div>
+                  <div class="friends-credent">
+                      <!-- name -->
+                      <span class="friends-name">{{ item.name }}</span>
+                      <!-- last message -->
+                      <span class="friends-message">{{ item.description }}</span>
+                  </div>
+                  <!-- notification badge -->
+                  <span class="badge notif-badge">{{ item|message_count }}</span>
+              </div>
+
+          {% endfor %}
       </div>
 
       <!-- self-profile -->
@@ -154,9 +98,6 @@
         <span class="glyphicon glyphicon-cog"></span>
       </div>
     </section>
-{#      <div id="lightbox-hamburger" class="lightbox">#}
-{#          <div class="lightbox-content">محتوای منوی همبرگری</div>#}
-{#      </div>#}
 
 
 

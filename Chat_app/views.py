@@ -20,7 +20,12 @@ import base64, os, time
 
 
 def index(request):
-    return render(request, 'chat_app/chat.html', {'title': 'صفحه اصلی'})
+    user = request.user
+    all_channels = Channel.objects.all()
+    conversations = Conversation.objects.filter(user1=user)
+    print("conversations",conversations)
+    return render(request, 'chat_app/chat.html',
+                  {'all_channels': all_channels,'conversations': conversations})
 
 class ConversationView(DetailView):
     model = Conversation

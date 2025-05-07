@@ -95,6 +95,7 @@ class Channel(models.Model):
     description = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     post_permission = models.CharField(max_length=15, choices=PERMISSION_CHOICES, default='admins_only')
+    image = models.ImageField(upload_to="image_channel/", blank=True, null=True)
 
     def save(self, *args, **kwargs):
         if not self.username:
